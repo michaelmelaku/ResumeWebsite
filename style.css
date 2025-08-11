@@ -137,6 +137,7 @@ nav {
     z-index: 1;
     max-width: 600px;
     margin: 0 auto;
+    
 }
 
 .hero-img {
@@ -254,6 +255,9 @@ body.dark .skills-grid img {
 
 body.dark .hero-section::after {
     background-color: rgba(20, 20, 20, 0.8);
+}
+body.light .hero-section::after {
+    background-color: var(--border);
 }
 
 .skills-grid p {
