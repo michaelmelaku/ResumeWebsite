@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inventory Management</title>
+  <link rel="stylesheet" href="StockStyle.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Inventory Management</h1>
+
+    <div class="controls">
+      <input type="text" id="searchInput" placeholder="Search items..." />
+      <select id="categoryFilter">
+        <option value="">All Categories</option>
+      </select>
+      <button onclick="openAddModal()">+ Add Item</button>
+      <button onclick="exportCSV()">Export CSV</button>
+      <button onclick="clearInventory()">Clear All</button>
+    </div>
+
+    <table class="inventory-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Qty</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="inventoryBody"></tbody>
+    </table>
+
+    <h3>Stock History</h3>
+    <ul id="historyLog" class="history-log"></ul>
+  </div>
+
+  <!-- Modal -->
+<div id="itemModal" class="modal" style="display:none;">
+  <h2 id="modalTitle">Add Item</h2>
+  <input id="itemName" type="text" placeholder="Name" />
+  <input id="itemQty" type="number" min="0" placeholder="Quantity" />
+  <input id="itemCategory" type="text" placeholder="Category" />
+  <button onclick="saveItem()">Save</button>
+  <button onclick="closeModal()">Cancel</button>
+</div>
+
+    </div>
+  </div>
+
+  <script src="StockScript.js"></script>
+</body>
+</html>
