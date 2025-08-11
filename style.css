@@ -310,6 +310,21 @@ body.light .hero-section::after {
     color: var(--primary);
 }
 
+.social-container {
+  display: flex;
+  justify-content: space-between; /* equal spacing */
+  align-items: center;
+  width: 100%; /* or a fixed width like 300px */
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.social-container img {
+  width: 24px;
+  height: 24px;
+}
+
+
 /* Contact */
 .contact-wrapper {
     display: flex;
