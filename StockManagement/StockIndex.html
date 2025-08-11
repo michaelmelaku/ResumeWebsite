@@ -11,11 +11,11 @@
     <h1>Inventory Management</h1>
 
     <div class="controls">
-      <input type="text" id="searchInput" placeholder="Search items..." />
+      <input type="text" id="searchInput" placeholder="🔍 Search items..." />
       <select id="categoryFilter">
-        <option value="">All Categories</option>
+      <option value=""> All Categories</option>
       </select>
-      <button onclick="openAddModal()">+ Add Item</button>
+      <button onclick="openAddModal()">Add Item</button>
       <button onclick="exportCSV()">Export CSV</button>
       <button onclick="clearInventory()">Clear All</button>
     </div>
@@ -57,8 +57,12 @@
       <tbody id="inventoryBody"></tbody>
     </table>
 
-    <h3>Stock History</h3>
-    <ul id="historyLog" class="history-log"></ul>
+
+    <div class="history-log-container">
+  <div class="history-log-title">🕓 Stock History</div>
+  <ul id="historyLog" class="history-log"></ul>
+</div>
+
   </div>
 
   <!-- Modal -->

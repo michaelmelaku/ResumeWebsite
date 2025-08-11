@@ -126,7 +126,7 @@ function renderInventory() {
       (!filter || item.category.toLowerCase() === filter)
     ) {
       const tr = document.createElement("tr");
-      const status = item.qty <= 5 ? `<span class="low-stock">Low</span>` : "OK";
+      const status = item.qty <= 5 ? `<span class="low-stock">Low ⚠️</span>` : "OK";
       tr.innerHTML = `
         <td>${item.name}</td>
         <td>${item.qty}</td>
@@ -232,6 +232,7 @@ function renderHistory() {
   const log = document.getElementById("historyLog");
   log.innerHTML = history.slice(-10).reverse().map(h => `<li>${h}</li>`).join("");
 }
+
 
 document.getElementById("searchInput").addEventListener("input", renderInventory);
 document.getElementById("categoryFilter").addEventListener("change", renderInventory);

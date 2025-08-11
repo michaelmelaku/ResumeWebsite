@@ -1,7 +1,7 @@
 body {
-  font-family: 'cambria';
-  background: #f4f4f4;
-  color: #333;
+  font-family: cambria, serif;
+  background: #e4e4e4;
+  color: #111;
   margin: 0;
   padding: 0;
 }
@@ -27,9 +27,26 @@ h1 {
 .controls input,
 .controls select {
   flex: 1;
-  padding: 10px;
-  border-radius: 6px;
+  padding: 10px 12px;
+  border-radius: 8px;
   border: 1px solid #ccc;
+  background: #fff;
+  font-family: Cambria, serif;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.controls input:focus,
+.controls select:focus {
+  outline: none;
+  border-color: #4e9af1;
+  box-shadow: 0 0 6px rgba(78, 154, 241, 0.5);
+}
+
+.controls input:hover,
+.controls select:hover {
+  background-color: #f9f9f9;
 }
 
 .controls button {
@@ -38,7 +55,7 @@ h1 {
   font-weight: 500;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(to right, #4e9af1, #3574d4);
+  background: linear-gradient(to right, #4e9af1, #3514d4);
   color: #fff;
   cursor: pointer;
   transition: all 0.25s ease-in-out;
@@ -47,7 +64,7 @@ h1 {
 
 .controls button:hover {
   transform: translateY(-2px);
-  background: linear-gradient(to right, #3574d4, #285cb0);
+  background: linear-gradient(to right, #3514d4, #285cb0);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -67,7 +84,7 @@ h1 {
   font-weight: 500;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(to right, #4e9af1, #3574d4);
+  background: linear-gradient(to right, #4e9af1, #3514d4);
   color: #fff;
   cursor: pointer;
   transition: all 0.25s ease-in-out;
@@ -76,7 +93,7 @@ h1 {
 
 #confirmModal button:hover {
   transform: translateY(-2px);
-  background: linear-gradient(to right, #3574d4, #285cb0);
+  background: linear-gradient(to right, #3514d4, #285cb0);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -89,6 +106,10 @@ h1 {
   width: 100%;
   border-collapse: collapse;
   background: white;
+   border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .inventory-table th,
@@ -104,7 +125,7 @@ h1 {
   font-weight: 500;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(to right, #4e9af1, #3574d4);
+  background: linear-gradient(to right, #4e9af1, #3514d4);
   color: #fff;
   cursor: pointer;
   transition: all 0.25s ease-in-out;
@@ -114,7 +135,7 @@ h1 {
 
 .inventory-table button:hover {
   transform: translateY(-2px);
-  background: linear-gradient(to right, #3574d4, #285cb0);
+  background: linear-gradient(to right, #3514d4, #285cb0);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -124,7 +145,7 @@ h1 {
 }
 
 .low-stock {
-  color: red;
+  color: black;
   font-weight: bold;
 }
 
@@ -193,7 +214,7 @@ h1 {
   font-weight: 500;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(to right, #4e9af1, #3574d4);
+  background: linear-gradient(to right, #4e9af1, #3514d4);
   color: #fff;
   cursor: pointer;
   transition: all 0.25s ease-in-out;
@@ -230,7 +251,7 @@ h1 {
   font-weight: 500;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(to right, #4e9af1, #3574d4);
+  background: linear-gradient(to right, #4e9af1, #3514d4);
   color: #fff;
   cursor: pointer;
   transition: all 0.25s ease-in-out;
@@ -239,7 +260,7 @@ h1 {
 
 .modal button:hover {
   transform: translateY(-2px);
-  background: linear-gradient(to right, #3574d4, #285cb0);
+  background: linear-gradient(to right, #3514d4, #285cb0);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -258,7 +279,7 @@ h1 {
   font-weight: 500;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(to right, #4e9af1, #3574d4);
+  background: linear-gradient(to right, #4e9af1, #3514d4);
   color: #fff;
   cursor: pointer;
   transition: all 0.25s ease-in-out;
@@ -267,7 +288,7 @@ h1 {
 
 .modal-button:hover {
   transform: translateY(-2px);
-  background: linear-gradient(to right, #3574d4, #285cb0);
+  background: linear-gradient(to right, #3514d4, #285cb0);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -278,15 +299,6 @@ h1 {
 
 
 
-.history-log {
-  background: #fff;
-  border-radius: 6px;
-  padding: 15px;
-  margin-top: 20px;
-  max-height: 200px;
-  overflow-y: auto;
-  font-size: 14px;
-}
 
 
 #saveMessage {
@@ -297,14 +309,51 @@ h1 {
   margin-top: 10px;
 }
 
-.history-log li {
-  margin-bottom: 6px;
-  color: #444;
-}
+
 
 /* Mobile */
 @media (max-width: 600px) {
   .controls {
     flex-direction: column;
   }
+}
+
+
+.history-log-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid #ddd;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+  padding: 15px 30px;
+  z-index: 5;
+}
+
+.history-log-title {
+  margin: 0 0 8px;
+  font-weight: bold;
+  color: #333;
+  font-size: 16px;
+}
+
+.history-log {
+  max-height: 100px;
+  overflow-y: auto;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+.history-log li {
+  padding: 4px 0;
+  border-bottom: 1px solid #eee;
+  color: #444;
+}
+
+.inventory-table thead tr {
+  background-color: #003366;
+  color: #fff;
 }
