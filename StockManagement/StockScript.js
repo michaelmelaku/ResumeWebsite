@@ -189,6 +189,19 @@ function deleteItem(index) {
 
 
 function clearInventory() {
+  const confirmYes = document.getElementById("confirmYes");
+  const confirmNo = document.getElementById("confirmNo");
+  const itemInputs = document.getElementById("itemInputs");
+  const confirmMessage = document.getElementById("confirmMessage");
+
+  // Hide inputs for simple confirmation
+  itemInputs.style.display = "none";
+  confirmMessage.style.display = "block";
+
+  // Reset buttons text
+  confirmYes.textContent = "Yes";
+  confirmNo.textContent = "No";
+
   showConfirmation("Are you sure you want to clear all inventory?", () => {
     inventory = [];
     history.push("Cleared all inventory.");
