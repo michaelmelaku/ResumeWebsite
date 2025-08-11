@@ -152,6 +152,15 @@ h1 {
   font-size: 14px;
 }
 
+
+#saveMessage {
+  position: relative;
+  z-index: 10;
+  font-weight: 600;
+  color: #0a7e07; /* green */
+  margin-top: 10px;
+}
+
 .history-log li {
   margin-bottom: 6px;
   color: #444;

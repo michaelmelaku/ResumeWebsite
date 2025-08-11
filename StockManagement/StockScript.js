@@ -2,6 +2,7 @@
 // Sample Items Below
 
 let inventory = JSON.parse(localStorage.getItem("inventoryData")) || [
+    
   { name: "Laptop", qty: 12, category: "Electronics" },
   { name: "Printer Ink", qty: 4, category: "Supplies" },
   { name: "Office Chair", qty: 8, category: "Furniture" },
@@ -12,17 +13,18 @@ let inventory = JSON.parse(localStorage.getItem("inventoryData")) || [
   { name: "Whiteboard Marker", qty: 15, category: "Stationery" }
 ];
 
-
+let history = JSON.parse(localStorage.getItem("inventoryHistory")) || [];
 let editingIndex = null;
 
 function openAddModal() {
-  editingIndex = null;
+  editingIndex = null;  // reset to null on new add
   document.getElementById("modalTitle").textContent = "Add Item";
   document.getElementById("itemName").value = "";
   document.getElementById("itemQty").value = "";
   document.getElementById("itemCategory").value = "";
   document.getElementById("itemModal").style.display = "block";
 }
+
 
 function openEditModal(index) {
   editingIndex = index;
@@ -40,32 +42,49 @@ function saveItem() {
   const category = document.getElementById("itemCategory").value.trim();
 
   if (!name || isNaN(qty) || qty < 0 || !category) {
-    alert("Please fill all fields correctly.");
+    alert("Please fill in all fields correctly.");
     return;
   }
 
+  const item = { name, qty, category };
+
   if (editingIndex === null) {
     // Add new item
-    inventory.push({ name, qty, category });
+    inventory.push(item);
     history.push(`Added "${name}" with qty ${qty}.`);
   } else {
-    // Update existing item
-    inventory[editingIndex] = { name, qty, category };
+    // Replace existing item at editingIndex
+    inventory[editingIndex] = item;
     history.push(`Edited "${name}" to qty ${qty}.`);
   }
 
   updateStorage();
   renderInventory();
-  closeModal();
-}
 
+  // Show success message
+  const messageBox = document.getElementById("saveMessage");
+  messageBox.textContent = "Saved successfully!";
+  messageBox.style.display = "block";
+
+  // Hide message and close modal after 1.2 seconds
+  setTimeout(() => {
+    messageBox.style.display = "none";
+    closeModal();
+  }, 1200);
+}
 function closeModal() {
   document.getElementById("itemModal").style.display = "none";
   editingIndex = null;
 }
 
 function editItem(index) {
-  openEditModal(index);
+  editingIndex = index; // VERY IMPORTANT
+  openAddModal();
+  document.getElementById("modalTitle").textContent = "Edit Item";
+  const item = inventory[index];
+  document.getElementById("itemName").value = item.name;
+  document.getElementById("itemQty").value = item.qty;
+  document.getElementById("itemCategory").value = item.category;
 }
 
 function saveItem() {
@@ -81,18 +100,29 @@ function saveItem() {
   const item = { name, qty, category };
 
   if (editingIndex === null) {
+    // Add new item
     inventory.push(item);
     history.push(`Added "${name}" with qty ${qty}.`);
   } else {
+    // Replace existing item
     inventory[editingIndex] = item;
     history.push(`Edited "${name}" to qty ${qty}.`);
   }
 
   updateStorage();
   renderInventory();
-  closeModal();
-}
 
+  // Show success message bubble
+  const messageBox = document.getElementById("saveMessage");
+  messageBox.textContent = "Saved successfully!";
+  messageBox.style.display = "block";
+
+  // Hide message and close modal after 1.2 seconds
+  setTimeout(() => {
+    messageBox.style.display = "none";
+    closeModal();
+  }, 1200);
+}
 function renderInventory() {
   const tbody = document.getElementById("inventoryBody");
   const search = document.getElementById("searchInput").value.toLowerCase();
