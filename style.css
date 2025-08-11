@@ -324,6 +324,29 @@ body.light .hero-section::after {
   height: 24px;
 }
 
+.bubble {
+  position: fixed;
+  top: 60px;
+  right: 30px;
+  background-color: var(--primary);
+  color: rgb(255, 255, 255);
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+  z-index: 500;
+  opacity: 0;
+  
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(20px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(20px); }
+}
+
+
 /* Enable horizontal scrolling for the container */
 .portfolio-container {
   display: flex;
@@ -382,6 +405,15 @@ body.light .hero-section::after {
   right: -10px;
   background-color: transparent;
   color: var(--secondary);
+}
+#experience ul {
+  padding-left: 20px;
+  margin-top: 8px;
+}
+
+#experience li {
+  margin-bottom: 6px;
+  line-height: 1.5;
 }
 
 /* Make sure container has some padding so arrows don’t overlap cards */

@@ -71,3 +71,39 @@ faders.forEach(fader => {
   rightBtn.addEventListener('click', () => {
     container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   });
+
+
+  const form = document.getElementById('contact-form');
+  const successBubble = document.getElementById('form-success');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent default form submission
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: form.method,
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        form.reset();
+
+        // Reset and trigger animation
+        successBubble.style.display = 'block';
+        successBubble.style.animation = 'none'; // reset animation
+        void successBubble.offsetWidth; // trigger reflow
+        successBubble.style.animation = 'fadeInOut 10s forwards';
+
+      } else {
+        alert("Oops! Something went wrong.");
+      }
+    })
+    .catch(() => {
+      alert("Error submitting the form.");
+    });
+  });
+
