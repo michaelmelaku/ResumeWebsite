@@ -1,5 +1,5 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'cambria';
   background: #f4f4f4;
   color: #333;
   margin: 0;
@@ -33,17 +33,56 @@ h1 {
 }
 
 .controls button {
-  padding: 10px 14px;
-  background-color: #007bff;
-  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  background: linear-gradient(to right, #4e9af1, #3574d4);
+  color: #fff;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .controls button:hover {
-  background-color: #0056b3;
+  transform: translateY(-2px);
+  background: linear-gradient(to right, #3574d4, #285cb0);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.controls button:active {
+  transform: scale(0.97);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+#confirmModal .modal-content {
+  text-align: center;
+}
+
+#confirmModal button {
+  margin: 10px 15px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(to right, #4e9af1, #3574d4);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+#confirmModal button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(to right, #3574d4, #285cb0);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+#confirmModal button:active {
+  transform: scale(0.97);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
 
 .inventory-table {
@@ -59,12 +98,65 @@ h1 {
   border-bottom: 1px solid #eee;
 }
 
+.inventory-table button {
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(to right, #4e9af1, #3574d4);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  margin-right: 6px;
+}
+
+.inventory-table button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(to right, #3574d4, #285cb0);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.inventory-table button:active {
+  transform: scale(0.97);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
 .low-stock {
   color: red;
   font-weight: bold;
 }
 
 .modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;          /* full screen */
+  background: rgba(0,0,0,0.5);
+  display: flex;         /* flexbox to center */
+  align-items: center;   /* vertical center */
+  justify-content: center; /* horizontal center */
+  z-index: 1000;
+}
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+#confirmModal .modal-content {
+  animation: fadeInScale 0.3s ease forwards;
+}
+
+
+.modal-button {
   display: none;
   position: fixed;
   top: 0; left: 0;
@@ -76,11 +168,13 @@ h1 {
 }
 
 .modal-content {
-  background: white;
-  padding: 20px;
+  background: rgb(233, 232, 232);
+  padding: 50px;
   width: 90%;
-  max-width: 400px;
-  border-radius: 8px;
+  max-width: 500px;
+  border-radius: 40px;
+  font-size: large;
+   
 }
 
 .modal-content input {
@@ -91,29 +185,23 @@ h1 {
   border: 1px solid #ccc;
 }
 
-.modal-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
-}
 
-.modal-buttons button {
-  flex: 1;
-  margin: 0 5px;
-  padding: 10px;
+.modal-button button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  background: linear-gradient(to right, #4e9af1, #3574d4);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-.modal-buttons button:first-child {
-  background: #28a745;
-  color: white;
-}
 
-.modal-buttons button:last-child {
-  background: #6c757d;
-  color: white;
-}
+
 #itemModal {
   position: fixed;
   top: 50%;
@@ -137,10 +225,58 @@ h1 {
 
 .modal button {
   margin-right: 10px;
-  padding: 8px 15px;
+  padding: 10px 20px;
   font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(to right, #4e9af1, #3574d4);
+  color: #fff;
   cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
+
+.modal button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(to right, #3574d4, #285cb0);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+.modal button:active {
+  transform: scale(0.97);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+
+
+.modal-button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(to right, #4e9af1, #3574d4);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.modal-button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(to right, #3574d4, #285cb0);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-button:active {
+  transform: scale(0.97);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+
 
 .history-log {
   background: #fff;

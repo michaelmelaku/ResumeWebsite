@@ -144,7 +144,8 @@ function renderInventory() {
         <td>${item.category}</td>
         <td>${status}</td>
         <td>
-          <button onclick="editItem(${index})">Edit</button>
+        
+        <button  onclick="editItem(${index})">Edit</button>
           <button onclick="deleteItem(${index})">Delete</button>
         </td>
       `;
@@ -179,10 +180,35 @@ function editItem(index) {
 }
 
 function deleteItem(index) {
-  const removed = inventory.splice(index, 1)[0];
-  history.push(`Deleted "${removed.name}".`);
-  updateStorage();
-  renderInventory();
+  const confirmModal = document.getElementById("confirmModal");
+  const confirmYes = document.getElementById("confirmYes");
+  const confirmNo = document.getElementById("confirmNo");
+  const confirmMessage = document.getElementById("confirmMessage");
+
+  confirmMessage.textContent = `Are you sure you want to delete "${inventory[index].name}"?`;
+  confirmModal.style.display = "flex";
+
+  function onYes() {
+    const removed = inventory.splice(index, 1)[0];
+    history.push(`Deleted "${removed.name}".`);
+    updateStorage();
+    renderInventory();
+    confirmModal.style.display = "none";
+    cleanup();
+  }
+
+  function onNo() {
+    confirmModal.style.display = "none";
+    cleanup();
+  }
+
+  function cleanup() {
+    confirmYes.removeEventListener("click", onYes);
+    confirmNo.removeEventListener("click", onNo);
+  }
+
+  confirmYes.addEventListener("click", onYes);
+  confirmNo.addEventListener("click", onNo);
 }
 
 function clearInventory() {
