@@ -373,11 +373,15 @@ body.light .hero-section::after {
 /* Left arrow */
 .scroll-arrow.left {
   left: -10px;
+  background-color: transparent;
+  color: var(--secondary);
 }
 
 /* Right arrow */
 .scroll-arrow.right {
   right: -10px;
+  background-color: transparent;
+  color: var(--secondary);
 }
 
 /* Make sure container has some padding so arrows don’t overlap cards */
@@ -388,13 +392,13 @@ body.light .hero-section::after {
 .portfolio-card {
   flex: 0 0 250px; /* Fixed width for swipe */
   scroll-snap-align: start;
-  background: #fff;
-  border-radius: 12px;
+  background-color: var(--border);
+  border-radius: 15px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
   text-align: center;
   text-decoration: none;
-  color: #222;
-  padding: 15px;
+  color: var(--secondary);
+  padding: 70px;
 }
 
 /* Disable image dragging and selection */
@@ -404,7 +408,6 @@ body.light .hero-section::after {
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 15px;
-
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
