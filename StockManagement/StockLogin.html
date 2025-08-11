@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - Inventory Management</title>
+  <link rel="stylesheet" href="StockStyle.css" />
+</head>
+<body>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+  <div class="modal-content" style="max-width: 360px;">
+    <h2 style="color:#3514d4; margin-bottom: 15px; text-align:center;">Login</h2>
+    <input id="loginUsername" type="text" placeholder="Username" />
+    <input id="loginPassword" type="password" placeholder="Password" />
+    <div id="loginError" style="color: red; margin-top: 10px; display:none; text-align:center; font-weight: 600;"></div>
+    <div style="margin-top: 20px; text-align: center;">
+      <button onclick="submitLogin()">Login</button>
+      <button onclick="closeLoginModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+
+  <script>
+    function openLoginModal() {
+  document.getElementById('loginModal').style.display = 'flex';
+  document.getElementById('loginError').style.display = 'none';
+  document.getElementById('loginUsername').value = '';
+  document.getElementById('loginPassword').value = '';
+}
+
+function closeLoginModal() {
+  document.getElementById('loginModal').style.display = 'none';
+}
+
+function submitLogin() {
+  const user = document.getElementById('loginUsername').value.trim();
+  const pass = document.getElementById('loginPassword').value.trim();
+  const errorEl = document.getElementById('loginError');
+
+  if(user === 'admin' && pass === 'password') {
+    closeLoginModal();
+    showMessage('Login successful!', () => {
+      window.location.href = 'index.html'; // redirect to main page
+    });
+  } else {
+    errorEl.textContent = 'Invalid username or password';
+    errorEl.style.display = 'block';
+  }
+}
+
+function showMessage(msg, callback) {
+  const modal = document.getElementById('messageModal');
+  const messageText = document.getElementById('messageText');
+
+  messageText.textContent = msg;
+  modal.style.display = 'flex';
+
+  // Clear previous event listeners
+  const btn = modal.querySelector('button');
+  btn.onclick = () => {
+    modal.style.display = 'none';
+    if (callback) callback();
+  };
+}
+
+function closeMessageModal() {
+  document.getElementById('messageModal').style.display = 'none';
+}
+window.onload = openLoginModal;
+
+  </script>
+</body>
+</html>
