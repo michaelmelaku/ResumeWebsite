@@ -13,8 +13,20 @@ let inventory = JSON.parse(localStorage.getItem("inventoryData")) || [
   { name: "Whiteboard Marker", qty: 15, category: "Stationery" }
 ];
 
+document.getElementById("exportBtn").addEventListener("click", () => {
+  const options = document.getElementById("exportOptions");
+  options.style.display = options.style.display === "block" ? "none" : "block";
+});
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".export-dropdown")) {
+    document.getElementById("exportOptions").style.display = "none";
+  }
+});
+
 let history = JSON.parse(localStorage.getItem("inventoryHistory")) || [];
 let editingIndex = null;
+
 
 
 function saveItem() {
@@ -216,12 +228,27 @@ function exportCSV() {
     csv += `${item.name},${item.qty},${item.category}\n`;
   });
 
+
   const blob = new Blob([csv], { type: "text/csv" });
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
   link.download = "inventory.csv";
   link.click();
 }
+
+const { jsPDF } = window.jspdf;
+
+function exportPDF() {
+  const doc = new jsPDF();
+
+  doc.autoTable({
+    head: [['Name', 'Quantity', 'Category']],
+    body: inventory.map(item => [item.name, item.qty, item.category])
+  });
+
+  doc.save("inventory.pdf");
+}
+
 
 function updateStorage() {
   localStorage.setItem("inventoryData", JSON.stringify(inventory));

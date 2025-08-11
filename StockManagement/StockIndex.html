@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Inventory Management</title>
   <link rel="stylesheet" href="StockStyle.css" />
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
   <div class="container">
@@ -16,7 +18,12 @@
       <option value=""> All Categories</option>
       </select>
       <button onclick="openAddModal()">Add Item</button>
-      <button onclick="exportCSV()">Export CSV</button>
+      <div class="export-dropdown">
+    <button id="exportBtn">Export ▼</button>
+    <div id="exportOptions" class="export-options" style="display:none;">
+      <div onclick="exportCSV()">Export as CSV</div>
+      <div onclick="exportPDF()">Export PDF</div>
+    </div>
       <button onclick="clearInventory()">Clear All</button>
     </div>
 
@@ -80,5 +87,9 @@
   </div>
 
   <script src="StockScript.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+<script src="StockScript.js"></script>
+
 </body>
 </html>

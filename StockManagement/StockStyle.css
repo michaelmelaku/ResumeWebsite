@@ -357,3 +357,31 @@ h1 {
   background-color: #003366;
   color: #fff;
 }
+.export-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.export-dropdown button {
+  /* Style matching your other buttons */
+}
+
+.export-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  z-index: 100;
+}
+
+.export-options div {
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.export-options div:hover {
+  background: #f4f4f4;
+}
