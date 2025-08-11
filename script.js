@@ -57,3 +57,17 @@ const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll
 faders.forEach(fader => {
   appearOnScroll.observe(fader);
 });
+
+  const container = document.querySelector('.portfolio-container');
+  const leftBtn = document.querySelector('.scroll-arrow.left');
+  const rightBtn = document.querySelector('.scroll-arrow.right');
+
+  const scrollAmount = 300; // how far to scroll on each click
+
+  leftBtn.addEventListener('click', () => {
+    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  });
+
+  rightBtn.addEventListener('click', () => {
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
