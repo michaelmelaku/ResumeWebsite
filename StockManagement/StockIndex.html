@@ -20,6 +20,30 @@
       <button onclick="clearInventory()">Clear All</button>
     </div>
 
+
+<!-- Reusable Modal -->
+<div id="confirmModal" class="modal" style="display:none;">
+  <div class="modal-content">
+
+    <!-- For confirmation -->
+    <p id="confirmMessage"></p>
+
+    <!-- For add/edit inputs -->
+    <div id="itemInputs" style="display:none;">
+      <input id="itemName" type="text" placeholder="Name" />
+      <input id="itemQty" type="number" min="0" placeholder="Quantity" />
+      <input id="itemCategory" type="text" placeholder="Category" />
+      <div id="saveMessage" style="color: red; margin-top: 10px; font-weight: bold;"></div>
+    </div>
+
+    <div style="text-align: right; margin-top: 15px;">
+      <button id="confirmYes">Yes</button>
+      <button id="confirmNo">No</button>
+    </div>
+  </div>
+</div>
+
+
     <table class="inventory-table">
       <thead>
         <tr>
@@ -46,13 +70,6 @@
   <div id="saveMessage" style="display:none; color: green; margin-top: 10px; font-weight: bold;"></div>
   <button onclick="saveItem()">Save</button>
   <button onclick="closeModal()">Cancel</button>
-</div>
-<div id="confirmModal" class="modal" style="display:none;">
-  <div class="modal-content">
-    <p id="confirmMessage">Are you sure?</p>
-    <button id="confirmYes">Yes</button>
-    <button id="confirmNo">No</button>
-  </div>
 </div>
 
     </div>
