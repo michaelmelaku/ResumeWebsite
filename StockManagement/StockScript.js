@@ -66,6 +66,8 @@ function renderInventory() {
 
 function updateCategoryFilter(categories) {
   const select = document.getElementById("categoryFilter");
+  const currentValue = select.value; // 💡 Store selected value
+
   select.innerHTML = `<option value="">All Categories</option>`;
   categories.forEach(cat => {
     const opt = document.createElement("option");
@@ -73,7 +75,11 @@ function updateCategoryFilter(categories) {
     opt.textContent = cat;
     select.appendChild(opt);
   });
+
+  // 💡 Reapply the previous selection
+  select.value = currentValue;
 }
+
 
 
 // The showDeleteConfirm function (from previous message):
@@ -154,6 +160,8 @@ function exportCSV() {
   link.download = "inventory.csv";
   link.click();
 }
+
+// Export to pdf function
 
 const { jsPDF } = window.jspdf;
 
