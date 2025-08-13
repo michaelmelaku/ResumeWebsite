@@ -372,6 +372,11 @@ body.light .hero-section::after {
 .portfolio-wrapper {
   position: relative;
 }
+.portfolio-card.cloned {
+    /* Optional: reduce opacity or mark for debugging */
+    opacity: 0.9;
+  }
+  
 
 /* Arrows */
 .scroll-arrow {

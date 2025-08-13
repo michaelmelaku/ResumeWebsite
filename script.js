@@ -58,20 +58,68 @@ faders.forEach(fader => {
   appearOnScroll.observe(fader);
 });
 
-  const container = document.querySelector('.portfolio-container');
-  const leftBtn = document.querySelector('.scroll-arrow.left');
-  const rightBtn = document.querySelector('.scroll-arrow.right');
+const container = document.querySelector('.portfolio-container');
+const scrollAmount = 300;
+let autoScrollInterval = 1000;
+let autoScrollTimer;
 
-  const scrollAmount = 300; // how far to scroll on each click
-
-  leftBtn.addEventListener('click', () => {
-    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+// Clone the items for seamless looping
+function cloneCards() {
+  const cards = container.querySelectorAll('.portfolio-card');
+  cards.forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.classList.add('cloned'); // Optional: to identify
+    container.appendChild(clone);
   });
+}
 
-  rightBtn.addEventListener('click', () => {
+//arrow buttons
+const leftBtn = document.querySelector('.scroll-arrow.left');
+const rightBtn = document.querySelector('.scroll-arrow.right');
+
+leftBtn.addEventListener('click', () => {
+  container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+
+  // Jump to second half if we’re too far left (before original set)
+  if (container.scrollLeft <= 0) {
+    container.scrollTo({ left: container.scrollWidth / 2, behavior: 'auto' });
+  }
+});
+
+rightBtn.addEventListener('click', () => {
+  container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+
+  // Reset to start when reaching cloned part
+  if (container.scrollLeft >= container.scrollWidth / 2) {
+    container.scrollTo({ left: 0, behavior: 'auto' });
+  }
+});
+
+
+// Start auto-scroll
+function startAutoScroll() {
+  autoScrollTimer = setInterval(() => {
     container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-  });
 
+    // If we've scrolled past the original set, reset position to start of original cards
+    if (container.scrollLeft >= container.scrollWidth / 2) {
+      container.scrollTo({ left: 0, behavior: 'auto' }); // instant jump
+    }
+  }, autoScrollInterval);
+}
+
+// Stop auto-scroll
+function stopAutoScroll() {
+  clearInterval(autoScrollTimer);
+}
+
+// Setup
+cloneCards();        // clone items for loop effect
+startAutoScroll();   // start auto-scrolling
+
+// Pause on hover
+container.addEventListener('mouseenter', stopAutoScroll);
+container.addEventListener('mouseleave', startAutoScroll);
 
   const form = document.getElementById('contact-form');
   const successBubble = document.getElementById('form-success');
