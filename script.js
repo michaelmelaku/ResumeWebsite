@@ -7,7 +7,7 @@ const body = document.body;
 function setLightMode() {
   body.classList.add('light');
   body.classList.remove('dark');
-  themeIcon.textContent = '🌙';
+  themeIcon.textContent = '🌘';
   themeText.textContent = 'Dark Mode';
   localStorage.setItem('theme', 'light');
 }
@@ -15,7 +15,7 @@ function setLightMode() {
 function setDarkMode() {
   body.classList.add('dark');
   body.classList.remove('light');
-  themeIcon.textContent = '☀️';
+  themeIcon.textContent = '⚪';
   themeText.textContent = 'Light Mode';
   localStorage.setItem('theme', 'dark');
 }

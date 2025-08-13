@@ -1,6 +1,6 @@
 // let inventory = JSON.parse(localStorage.getItem("inventoryData")) || [];
-// Sample Items Below
 
+// Sample Items Below
 let inventory = JSON.parse(localStorage.getItem("inventoryData")) || [
     
   { name: "Laptop", qty: 12, category: "Electronics" },
@@ -29,101 +29,6 @@ let editingIndex = null;
 
 
 
-function saveItem() {
-  const name = document.getElementById("itemName").value.trim();
-  const qty = parseInt(document.getElementById("itemQty").value);
-  const category = document.getElementById("itemCategory").value.trim();
-
-  if (!name || isNaN(qty) || qty < 0 || !category) {
-    alert("Please fill in all fields correctly.");
-    return;
-  }
-
-  const item = { name, qty, category };
-
-  const proceed = () => {
-    if (editingIndex === null) {
-      inventory.push(item);
-      history.push(`Added "${name}" with qty ${qty}.`);
-    } else {
-      inventory[editingIndex] = item;
-      history.push(`Edited "${name}" to qty ${qty}.`);
-    }
-
-    updateStorage();
-    renderInventory();
-
-    const messageBox = document.getElementById("saveMessage");
-    messageBox.textContent = "Saved successfully!";
-    messageBox.style.display = "block";
-
-    setTimeout(() => {
-      messageBox.style.display = "none";
-      closeModal();
-    }, 1200);
-  };
-
-  const message = editingIndex === null
-    ? `Add new item "${name}" with qty ${qty}?`
-    : `Save changes to "${name}"?`;
-
-  showConfirmation(message, proceed);
-}
-
-function closeModal() {
-  document.getElementById("itemModal").style.display = "none";
-  editingIndex = null;
-}
-
-function editItem(index) {
-  editingIndex = index;
-  const item = inventory[index];
-  document.getElementById("modalTitle").textContent = "Edit Item";
-  document.getElementById("itemName").value = item.name;
-  document.getElementById("itemQty").value = item.qty;
-  document.getElementById("itemCategory").value = item.category;
-  document.getElementById("itemModal").style.display = "block";
-}
-
-function saveItem() {
-  const name = document.getElementById("itemName").value.trim();
-  const qty = parseInt(document.getElementById("itemQty").value, 10);
-  const category = document.getElementById("itemCategory").value.trim();
-
-  if (!name || isNaN(qty) || qty < 0 || !category) {
-    alert("Please fill in all fields correctly.");
-    return;
-  }
-
-  const item = { name, qty, category };
-
-  const message = editingIndex === null
-    ? `Add new item "${name}" with qty ${qty}?`
-    : `Save changes to "${name}" with qty ${qty}?`;
-
-  showConfirmation(message, () => {
-    if (editingIndex === null) {
-      inventory.push(item);
-      history.push(`Added "${name}" with qty ${qty}.`);
-    } else {
-      inventory[editingIndex] = item;
-      history.push(`Edited "${name}" to qty ${qty}.`);
-    }
-
-    updateStorage();
-    renderInventory();
-
-    const messageBox = document.getElementById("saveMessage");
-    messageBox.textContent = "Saved successfully!";
-    messageBox.style.display = "block";
-
-    setTimeout(() => {
-      messageBox.style.display = "none";
-      closeModal();
-    }, 1200);
-  });
-}
-
 function renderInventory() {
   const tbody = document.getElementById("inventoryBody");
   const search = document.getElementById("searchInput").value.toLowerCase();
@@ -146,8 +51,8 @@ function renderInventory() {
         <td>${status}</td>
         <td>
         
-        <button onclick="openEditModal(${index})">Edit</button>
-          <button onclick="deleteItem(${index})">Delete</button>
+        <button class="btn btn--small" onclick="openEditModal(${index})">Edit</button>
+          <button class="btn btn--small" onclick="deleteItem(${index})">Delete</button>
         </td>
       `;
       tbody.appendChild(tr);
@@ -170,18 +75,32 @@ function updateCategoryFilter(categories) {
   });
 }
 
-function editItem(index) {
-  const item = inventory[index];
-  editingIndex = index;
-  openAddModal();
-  document.getElementById("modalTitle").textContent = "Edit Item";
-  document.getElementById("itemName").value = item.name;
-  document.getElementById("itemQty").value = item.qty;
-  document.getElementById("itemCategory").value = item.category;
+
+// The showDeleteConfirm function (from previous message):
+function showDeleteConfirm(message, onConfirm) {
+  const modal = document.getElementById("deleteConfirmModal");
+  const msg = document.getElementById("deleteConfirmMessage");
+  const yesBtn = document.getElementById("deleteConfirmYes");
+  const noBtn = document.getElementById("deleteConfirmNo");
+
+  msg.textContent = message;
+  modal.style.display = "flex";
+
+  yesBtn.onclick = () => {
+    modal.style.display = "none";
+    onConfirm();
+  };
+
+  noBtn.onclick = () => {
+    modal.style.display = "none";
+  };
 }
 
+
 function deleteItem(index) {
-  showConfirmation(`Are you sure you want to delete "${inventory[index].name}"?`, () => {
+  const itemName = inventory[index].name;
+  // Show reusable confirmModal for delete
+  showDeleteConfirm(`Are you sure you want to delete "${itemName}"?`, () => {
     const row = document.querySelector(`tr[data-index="${index}"]`);
     if (row) {
       row.style.transition = "opacity 0.5s ease, transform 0.5s ease";
@@ -198,29 +117,29 @@ function deleteItem(index) {
   });
 }
 
-
+// Clear all button function
 
 function clearInventory() {
-  const confirmYes = document.getElementById("confirmYes");
-  const confirmNo = document.getElementById("confirmNo");
-  const itemInputs = document.getElementById("itemInputs");
-  const confirmMessage = document.getElementById("confirmMessage");
+  const modal = document.getElementById("clearAllModal");
+  const yesBtn = document.getElementById("clearAllYes");
+  const noBtn = document.getElementById("clearAllNo");
 
-  // Hide inputs for simple confirmation
-  itemInputs.style.display = "none";
-  confirmMessage.style.display = "block";
+  modal.style.display = "flex";
 
-  // Reset buttons text
-  confirmYes.textContent = "Yes";
-  confirmNo.textContent = "No";
-
-  showConfirmation("Are you sure you want to clear all inventory?", () => {
+  yesBtn.onclick = () => {
     inventory = [];
     history.push("Cleared all inventory.");
     updateStorage();
     renderInventory();
-  });
+    modal.style.display = "none";
+  };
+
+  noBtn.onclick = () => {
+    modal.style.display = "none";
+  };
 }
+
+// Export to csv function
 
 function exportCSV() {
   let csv = "Name,Quantity,Category\n";
@@ -293,83 +212,108 @@ function showConfirmation(message, onYes) {
   };
 }
 
+//Add Item Function
+
 function openAddModal() {
   editingIndex = null;
-  openItemModal("Add Item");
-}
 
-function openEditModal(index) {
-  editingIndex = index;
-  openItemModal("Edit Item", inventory[index]);
-}
+  const modal = document.getElementById("addItemModal");
+  const nameInput = document.getElementById("addItemName");
+  const qtyInput = document.getElementById("addItemQty");
+  const categoryInput = document.getElementById("addItemCategory");
+  const messageBox = document.getElementById("addSaveMessage");
 
-function openItemModal(title, item = { name: "", qty: "", category: "" }) {
-  const modal = document.getElementById("confirmModal");
-  const confirmMessage = document.getElementById("confirmMessage");
-  const itemInputs = document.getElementById("itemInputs");
-  const confirmYes = document.getElementById("confirmYes");
-  const confirmNo = document.getElementById("confirmNo");
-  const saveMessage = document.getElementById("saveMessage");
-
-  // Setup modal UI for inputs
-  confirmMessage.style.display = "none";
-  itemInputs.style.display = "block";
-  saveMessage.style.display = "block";
-  saveMessage.style.color = "red";
-  saveMessage.textContent = "";
-
-  // Set input values
-  document.getElementById("itemName").value = item.name;
-  document.getElementById("itemQty").value = item.qty;
-  document.getElementById("itemCategory").value = item.category;
-
-  // Change button text
-  confirmYes.textContent = title === "Add Item" ? "Add" : "Save";
+  nameInput.value = "";
+  qtyInput.value = "";
+  categoryInput.value = "";
+  messageBox.textContent = "";
 
   modal.style.display = "flex";
 
-  // Remove old listeners
-  confirmYes.onclick = null;
-  confirmNo.onclick = null;
-
-  confirmYes.onclick = () => {
-    // Validate inputs
-    const name = document.getElementById("itemName").value.trim();
-    const qty = parseInt(document.getElementById("itemQty").value);
-    const category = document.getElementById("itemCategory").value.trim();
+  document.getElementById("addSaveBtn").onclick = () => {
+    const name = nameInput.value.trim();
+    const qty = parseInt(qtyInput.value, 10);
+    const category = categoryInput.value.trim();
 
     if (!name || isNaN(qty) || qty < 0 || !category) {
-      saveMessage.textContent = "Please fill in all fields correctly.";
+      messageBox.style.color = "red";
+      messageBox.textContent = "Please fill in all fields correctly.";
       return;
     }
 
-    saveMessage.textContent = "";
-    modal.style.display = "none";
+    const item = { name, qty, category };
+    inventory.push(item);
+    history.push(`Added "${name}" with qty ${qty}.`);
 
-    const newItem = { name, qty, category };
-
-    if (editingIndex === null) {
-      inventory.push(newItem);
-      history.push(`Added "${name}" with qty ${qty}.`);
-    } else {
-      inventory[editingIndex] = newItem;
-      history.push(`Edited "${name}" to qty ${qty}.`);
-    }
     updateStorage();
     renderInventory();
 
-    // Show success message briefly
-    const messageBox = document.getElementById("saveMessage");
+    
     messageBox.style.color = "green";
-    messageBox.textContent = "Saved successfully!";
-    messageBox.style.display = "block";
+    messageBox.textContent = "Item added successfully!";
 
-    setTimeout(() => {
-      messageBox.style.display = "none";
-    }, 1200);
+    // Hide the message after 2000ms
+  setTimeout(() => {
+  messageBox.textContent = "";
+    }, 2000);
+
+   //to hide the modal immediately after save button is pressed
+    // setTimeout(() => {
+    //   modal.style.display = "none";
+    // }, 2000);
   };
 
-  confirmNo.onclick = () => {
+  document.getElementById("addCancelBtn").onclick = () => {
+    modal.style.display = "none";
+  };
+}
+
+
+//Edit Item Function
+
+function openEditModal(index) {
+  editingIndex = index;
+
+  const modal = document.getElementById("editItemModal");
+  const nameInput = document.getElementById("editItemName");
+  const qtyInput = document.getElementById("editItemQty");
+  const categoryInput = document.getElementById("editItemCategory");
+  const messageBox = document.getElementById("editSaveMessage");
+
+  const item = inventory[index];
+
+  nameInput.value = item.name;
+  qtyInput.value = item.qty;
+  categoryInput.value = item.category;
+  messageBox.textContent = "";
+
+  modal.style.display = "flex";
+
+  document.getElementById("editSaveBtn").onclick = () => {
+    const name = nameInput.value.trim();
+    const qty = parseInt(qtyInput.value, 10);
+    const category = categoryInput.value.trim();
+
+    if (!name || isNaN(qty) || qty < 0 || !category) {
+      messageBox.textContent = "Please fill in all fields correctly.";
+      return;
+    }
+
+    inventory[index] = { name, qty, category };
+    history.push(`Edited "${name}" to qty ${qty}.`);
+
+    updateStorage();
+    renderInventory();
+
+    messageBox.style.color = "green";
+    messageBox.textContent = "Changes saved!";
+
+    setTimeout(() => {
+      modal.style.display = "none";
+    }, 1000);
+  };
+
+  document.getElementById("editCancelBtn").onclick = () => {
     modal.style.display = "none";
   };
 }
