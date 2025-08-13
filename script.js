@@ -60,7 +60,7 @@ faders.forEach(fader => {
 
 const container = document.querySelector('.portfolio-container');
 const scrollAmount = 300;
-let autoScrollInterval = 1000;
+let autoScrollInterval = 2000;
 let autoScrollTimer;
 
 // Clone the items for seamless looping

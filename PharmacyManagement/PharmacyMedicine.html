@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Manage Medicines</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="PharmacyStyle.css"/>
+</head>
+<body>
+  <div class="dashboard">
+    <header>
+      <h1>Medicine Management</h1>
+      <button onclick="window.location='PharmacyDashboard.html'">Back</button>
+    </header>
+    <main>
+      <form id="medicineForm">
+        <input type="hidden" id="editIndex">
+        <input type="text" id="medName" placeholder="Name" required/>
+        <input type="number" id="medQty" placeholder="Quantity" min="1" required/>
+        <input type="number" id="medPrice" placeholder="Price" step="0.01" min="0.01" required/>
+        <button type="submit">Save Medicine</button>
+      </form>
+      <div class="export-buttons">
+        <button id="exportCsv">Export CSV</button>
+        <button id="exportJson">Export JSON</button>
+        <button id="exportXml">Export XML</button>
+      </div>
+      <table id="medicineTable">
+        <thead>
+          <tr><th>Name</th><th>Qty</th><th>Price</th><th>Actions</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </main>
+  </div>
+  <script src="PharmacyScript.js"></script>
+</body>
+</html>
