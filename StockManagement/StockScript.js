@@ -145,14 +145,26 @@ function clearInventory() {
   };
 }
 
-// Export to csv function
+
+
+function getFilteredInventory() {
+  const search = document.getElementById("searchInput").value.toLowerCase();
+  const filter = document.getElementById("categoryFilter").value.toLowerCase();
+
+  return inventory.filter(item => 
+    (!search || item.name.toLowerCase().includes(search)) &&
+    (!filter || item.category.toLowerCase() === filter)
+  );
+}
+
 
 function exportCSV() {
   let csv = "Name,Quantity,Category\n";
-  inventory.forEach(item => {
+  const filteredItems = getFilteredInventory();
+
+  filteredItems.forEach(item => {
     csv += `${item.name},${item.qty},${item.category}\n`;
   });
-
 
   const blob = new Blob([csv], { type: "text/csv" });
   const link = document.createElement("a");
@@ -161,20 +173,20 @@ function exportCSV() {
   link.click();
 }
 
-// Export to pdf function
-
 const { jsPDF } = window.jspdf;
 
 function exportPDF() {
   const doc = new jsPDF();
+  const filteredItems = getFilteredInventory();
 
   doc.autoTable({
     head: [['Name', 'Quantity', 'Category']],
-    body: inventory.map(item => [item.name, item.qty, item.category])
+    body: filteredItems.map(item => [item.name, item.qty, item.category])
   });
 
   doc.save("inventory.pdf");
 }
+
 
 
 function updateStorage() {
