@@ -35,7 +35,9 @@
 
   <div class="container">
     <h1>Current Inventory</h1>
-
+    <div style="flex-basis: 100%; display: flex; justify-content: flex-end;">
+    <button  onclick="logout()" class="btn btn--logout" >🔒<br/>Log Out</button>
+  </div>
     <div class="controls">
       <input type="text" id="searchInput" placeholder="🔍 Search items..." />
       <select id="categoryFilter">
@@ -48,7 +50,8 @@
       <div onclick="exportCSV()">Export as CSV</div>
       <div onclick="exportPDF()">Export PDF</div>
     </div>
-      <button class="btn btn--control" onclick="clearInventory()">Clear All</button>
+    
+    <button class="btn btn--control" onclick="clearInventory()">Clear All</button>
     </div>
 
 
@@ -118,16 +121,26 @@
       </thead>
       <tbody id="inventoryBody"></tbody>
     </table>
-
+    
 
 <!-- History Log Bottum Page  -->
     
 <div class="history-log-container">
-  <div class="history-log-title">🕓 Stock History</div>
+  <div class="history-log-title">🕓 Stock History 
+    
+</div>
+  
   <ul id="historyLog" class="history-log"></ul>
 </div>
 
   </div>
+ <!-- Message Modal -->
+<div id="messageModal" class="modal" style="display: none; align-items: center; justify-content: center;">
+  <div class="modal-content" style="max-width: 300px; text-align: center;">
+    <p id="messageText" style="font-family: Cambria; font-weight: bold;"></p>
+    <!-- <button style="margin-top: 15px; font-family: Cambria;" onclick="closeMessageModal()">OK</button> -->
+  </div>
+</div>
 
     
 

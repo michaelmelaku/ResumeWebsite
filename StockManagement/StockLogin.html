@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login - Inventory Management</title>
+  <title>Login | Inventory Management</title>
   <link rel="stylesheet" href="StockStyle.css" />
 </head>
 <body>
@@ -21,8 +21,11 @@
     <div id="loginError" style="color: red; margin-top: 10px; display:none; text-align:center; font-weight: 600; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;"></div>
     
     <div style="margin-top: 20px; text-align: center;">
-      <button style="font-family: Cambria; font-weight: bold;" onclick="submitLogin()">Login</button>
-      <button style="font-family: Cambria; font-weight: bold;" onclick="closeLoginModal()">Cancel</button>
+      <button class="btn" onclick="submitLogin()">Login</button>
+      <button class="btn" onclick="closeLoginModal()">Cancel</button>
+      <div>
+      <button class="btn btn--modal" onclick="backToPortfolio()">Back to Portfolios</button>
+      </div>
     </div>
   </div>
 </div>
@@ -110,6 +113,16 @@ function showMessageAuto(msg) {
   modal.style.display = 'flex';
 }
 
+// Back to Portfolio Function
+function backToPortfolio() {
+  // Show "..." message
+  showMessageAuto('...🏠');
+
+  // After 2 seconds, redirect to login page
+  setTimeout(() => {
+    window.location.href = '../Index.html';
+  }, 1000);
+}
 
 function showMessage(msg, callback) {
   const modal = document.getElementById('messageModal');

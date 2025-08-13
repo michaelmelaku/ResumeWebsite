@@ -52,7 +52,7 @@ function renderInventory() {
         <td>
         
         <button class="btn btn--small" onclick="openEditModal(${index})">Edit</button>
-          <button class="btn btn--small" onclick="deleteItem(${index})">Delete</button>
+          <button class="btn btn--red" onclick="deleteItem(${index})">Delete</button>
         </td>
       `;
       tbody.appendChild(tr);
@@ -316,4 +316,24 @@ function openEditModal(index) {
   document.getElementById("editCancelBtn").onclick = () => {
     modal.style.display = "none";
   };
+}
+
+// Showmessage function
+function showMessageAuto(msg) {
+  const modal = document.getElementById('messageModal');
+  const messageText = document.getElementById('messageText');
+
+  messageText.textContent = msg;
+  modal.style.display = 'flex';
+}
+
+// Logout Function
+function logout() {
+  // Show "Logging out..." message
+  showMessageAuto('🔒 Logging out...');
+
+  // After 2 seconds, redirect to login page
+  setTimeout(() => {
+    window.location.href = 'StockLogin.html';
+  }, 1000);
 }
