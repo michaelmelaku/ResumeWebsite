@@ -5,7 +5,13 @@ a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
 
 /* Navigation */
-.navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; background: #0f1d2a; color: #fff; }
+.navbar {  display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; 
+  /* background: #0f1d2a;  */
+  background: url(../images/banner.jpg);
+   position: sticky;
+  top: 0;
+  z-index: 1000;
+  color: #fff; }
 .navbar .logo { font-size: 1.5rem; font-weight: bold; }
 .nav-links li { display: inline-block; margin-left: 1.5rem; }
 .nav-links li a { font-size: 1rem; transition: color 0.3s; }
@@ -13,27 +19,77 @@ ul { list-style: none; }
 .nav-links li.active a { color: #1abc9c; }
 
 /* Hero */
-.hero { height: 80vh; background: url('../images/hero.jpg') center/cover no-repeat; display: flex; align-items: center; justify-content: center; position: relative; color: #fff; text-align: center; }
-.hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,29,42, 0.6); }
-.hero-content { position: relative; z-index: 1; animation: fadeInUp 1.2s ease-out; }
+.hero { 
+  height: 80vh; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  position: relative; 
+  color: #fff; 
+  text-align: center; 
+}
+.hero::after { 
+  content: ''; 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  background: 
+  rgba(15,29,42, 0.6); 
+}
+.hero-content 
+{ position: relative; 
+  z-index: 1; 
+  animation: 
+  fadeInUp 2s ease-out; }
 .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
 .hero p { font-size: 1.2rem; margin-bottom: 1.5rem; }
-.btn { display: inline-block; padding: 0.75rem 1.5rem; background: #1abc9c; color: #fff; border: none; cursor: pointer; transition: background 0.3s; }
-.btn:hover { background: #17a589; }
+.btn { 
+  display: inline-block; 
+  padding: 0.75rem 1.5rem; 
+  /* background: #1abc9c; */
+  background: #03333f; 
+  color: #fff; 
+  border: none; 
+  cursor: pointer; 
+  transition: background 0.3s; 
+}
+.btn:hover { 
+  /* background: #17a589;  */
+  background: #010136;
+   border: 3px solid #aaaaa8;
+}
 
 /* Sections */
 section { padding: 4rem 5%; }
 .services-preview .cards, .team-members, .mission-values .cards { display: flex; gap: 1.5rem; justify-content: space-between; flex-wrap: wrap; }
 .card, .service-item, .member { background: #f9f9f9; padding: 1.75rem; border-radius: 8px; flex: 1; min-width: 250px; text-align: center; transition: transform 0.3s; }
 .card:hover, .service-item:hover, .member:hover { transform: translateY(-8px); }
-.testimonials { background: #1abc9c; color: #fff; padding: 4rem 5%; text-align: center; }
+.testimonials { 
+  /* background: #1abc9c;  */
+   background: #02143c; 
+  color: #17a589;
+  padding: 4rem 5%; 
+  text-align: center; }
 .testimonial p { font-size: 1.1rem; margin-bottom: 1rem; }
 
 /* Portfolio */
 .filter-buttons { text-align: center; margin-bottom: 2rem; }
-.filter-buttons button { margin: 0 0.5rem; padding: 0.5rem 1rem; border: 2px solid #1abc9c; background: none; color: #1abc9c; cursor: pointer; transition: background 0.3s, color 0.3s; }
-.filter-buttons button.active,
-.filter-buttons button:hover { background: #1abc9c; color: #fff; }
+.filter-buttons button { 
+  margin: 0 0.5rem; 
+  padding: 0.5rem 1rem; 
+  /* border: 2px solid #1abc9c;  */
+  border: 2px solid #02143c; 
+  background: none; color: #02143c; cursor: pointer; transition: background 0.3s, color 0.3s; }
+.filter-buttons button.active {
+  background: #1111b1;
+  color: #fff; 
+}
+.filter-buttons button:hover { 
+  /* background: #1abc9c;  */
+  background: #02143c;
+  color: #fff; }
 .projects { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
 .project { background: #ececec; padding: 2rem; border-radius: 8px; flex: 1 1 200px; text-align: center; }
 
@@ -47,4 +103,19 @@ section { padding: 4rem 5%; }
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  left: ;
+  width: 100%;
+  /* background: #f0f0f0; */
+  text-align: right;
+  padding: 0.2em;
+  font-weight: 300;
+  color: #ffffff;
+    background: url(../images/banner.jpg);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }

@@ -13,5 +13,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     });
-  });
   
+
+      // Hero background image changer
+  const hero = document.getElementById('hero') || document.querySelector('.hero');
+
+  const images = [
+    'assets/images/hero1.jpg',
+    'assets/images/hero2.jpg',
+    'assets/images/hero3.jpg'
+  ];
+
+  let index = 0;
+
+  function changeBackground() {
+    if (hero) {
+      hero.style.backgroundImage = `url(${images[index]})`;
+      index = (index + 1) % images.length;
+    }
+  }
+
+  changeBackground(); // Initial call
+  setInterval(changeBackground, 10000); // Change every 5 seconds
+
+  });
+
+   
