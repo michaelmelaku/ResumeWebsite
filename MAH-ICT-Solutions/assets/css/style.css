@@ -1,6 +1,11 @@
 /* Reset & Global */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.6; color: #333; }
+body { 
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; 
+  line-height: 1.6; 
+  color: #333; 
+  
+}
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
 
@@ -120,4 +125,60 @@ footer {
   background-position: center;
   
   z-index: 1000; /* ensures it stays above other elements */
+}
+
+.logo-slider {
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: #fff; /* optional */
+  padding: 1rem 0;
+  margin-bottom: 60px; /* enough space before the fixed footer */
+  margin-left: 300px;
+  margin-right: 300px;
+}
+
+.logo-track {
+  display: flex;
+  width: max-content;
+  animation: slideLeft 10s linear infinite;
+}
+
+.logo-track img {
+  height: 60px;          /* adjust as needed */
+  margin: 0 2rem;        /* space between logos */
+  object-fit: contain;
+}
+
+/* Animation keyframes */
+@keyframes slideLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.logo-slider:hover .logo-track {
+  animation-play-state: paused;
+}
+.logo-slider::before,
+.logo-slider::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 60px;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.logo-slider::before {
+  left: 0;
+  background: linear-gradient(to right, #fff, transparent);
+}
+
+.logo-slider::after {
+  right: 0;
+  background: linear-gradient(to left, #fff, transparent);
 }
