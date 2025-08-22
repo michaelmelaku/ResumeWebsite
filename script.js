@@ -1,4 +1,4 @@
-// Dark Mode Toggle
+// ================== Dark Mode Toggle ==================
 const toggleBtn = document.getElementById('theme-toggle');
 const themeIcon = document.getElementById('theme-icon');
 const themeText = document.getElementById('theme-text');
@@ -22,136 +22,90 @@ function setDarkMode() {
 
 function loadTheme() {
   const saved = localStorage.getItem('theme');
-  if (saved === 'dark') {
-    setDarkMode();
-  } else {
-    setLightMode(); // default to light
-  }
+  if (saved === 'dark') setDarkMode();
+  else setLightMode();
 }
 
 toggleBtn.addEventListener('click', () => {
-  if (body.classList.contains('dark')) {
-    setLightMode();
-  } else {
-    setDarkMode();
-  }
+  if (body.classList.contains('dark')) setLightMode();
+  else setDarkMode();
 });
 
 loadTheme();
-// Scroll Fade-in Animations
+
+
+// ================== Scroll Fade-in Animations ==================
 const faders = document.querySelectorAll('.fade-in');
-
-const appearOptions = {
-  threshold: 0.15,
-  rootMargin: "0px 0px -50px 0px"
-};
-
-const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+const appearOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+const appearOnScroll = new IntersectionObserver((entries, obs) => {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
     entry.target.classList.add('visible');
-    appearOnScroll.unobserve(entry.target);
+    obs.unobserve(entry.target);
   });
 }, appearOptions);
 
-faders.forEach(fader => {
-  appearOnScroll.observe(fader);
-});
+faders.forEach(fader => appearOnScroll.observe(fader));
 
-const container = document.querySelector('.portfolio-container');
-const scrollAmount = 300;
-let autoScrollInterval = 3000;
-let autoScrollTimer;
 
-// Clone the items for seamless looping
-function cloneCards() {
+// ================== Portfolio Auto-Scroll ==================
+const containers = document.querySelectorAll('.portfolio-container');
+
+containers.forEach((container, index) => {
+  // Clone items
   const cards = container.querySelectorAll('.portfolio-card');
-  cards.forEach(card => {
-    const clone = card.cloneNode(true);
-    clone.classList.add('cloned'); // Optional: to identify
-    container.appendChild(clone);
-  });
-}
+  cards.forEach(card => container.appendChild(card.cloneNode(true)));
 
-//arrow buttons
-const leftBtn = document.querySelector('.scroll-arrow.left');
-const rightBtn = document.querySelector('.scroll-arrow.right');
+  // Continuous scroll
+  let speed = (index % 2 === 0) ? 1 : -1; // reverse second container
+  let scrolling;
 
-leftBtn.addEventListener('click', () => {
-  container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  const resetPoint = container.scrollWidth / 2; // original content length
 
-  // Jump to second half if we’re too far left (before original set)
-  if (container.scrollLeft <= 0) {
-    container.scrollTo({ left: container.scrollWidth / 2, behavior: 'auto' });
-  }
-});
+  function continuousScroll() {
+    container.scrollLeft += speed;
 
-rightBtn.addEventListener('click', () => {
-  container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-
-  // Reset to start when reaching cloned part
-  if (container.scrollLeft >= container.scrollWidth / 2) {
-    container.scrollTo({ left: 0, behavior: 'auto' });
-  }
-});
-
-
-// Start auto-scroll
-function startAutoScroll() {
-  autoScrollTimer = setInterval(() => {
-    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-
-    // If we've scrolled past the original set, reset position to start of original cards
-    if (container.scrollLeft >= container.scrollWidth / 2) {
-      container.scrollTo({ left: 0, behavior: 'auto' }); // instant jump
+    if (speed > 0 && container.scrollLeft >= resetPoint) {
+      container.scrollLeft = 0;
     }
-  }, autoScrollInterval);
-}
+    if (speed < 0 && container.scrollLeft <= 0) {
+      container.scrollLeft = resetPoint;
+    }
 
-// Stop auto-scroll
-function stopAutoScroll() {
-  clearInterval(autoScrollTimer);
-}
+    scrolling = requestAnimationFrame(continuousScroll);
+  }
 
-// Setup
-cloneCards();        // clone items for loop effect
-startAutoScroll();   // start auto-scrolling
+  function startScroll() { if (!scrolling) continuousScroll(); }
+  function stopScroll() { cancelAnimationFrame(scrolling); scrolling = null; }
 
-// Pause on hover
-container.addEventListener('mouseenter', stopAutoScroll);
-container.addEventListener('mouseleave', startAutoScroll);
+  startScroll();
 
-  const form = document.getElementById('contact-form');
-  const successBubble = document.getElementById('form-success');
+  container.addEventListener('mouseenter', stopScroll);
+  container.addEventListener('mouseleave', startScroll);
+});
 
-  form.addEventListener('submit', function (e) {
-    e.preventDefault(); // Prevent default form submission
 
-    const formData = new FormData(form);
+// ================== Contact Form ==================
+const form = document.getElementById('contact-form');
+const successBubble = document.getElementById('form-success');
 
-    fetch(form.action, {
-      method: form.method,
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-    .then(response => {
-      if (response.ok) {
-        form.reset();
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const formData = new FormData(form);
 
-        // Reset and trigger animation
-        successBubble.style.display = 'block';
-        successBubble.style.animation = 'none'; // reset animation
-        void successBubble.offsetWidth; // trigger reflow
-        successBubble.style.animation = 'fadeInOut 10s forwards';
-
-      } else {
-        alert("Oops! Something went wrong.");
-      }
-    })
-    .catch(() => {
-      alert("Error submitting the form.");
-    });
-  });
-
+  fetch(form.action, {
+    method: form.method,
+    body: formData,
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(response => {
+    if (response.ok) {
+      form.reset();
+      successBubble.style.display = 'block';
+      successBubble.style.animation = 'none';
+      void successBubble.offsetWidth;
+      successBubble.style.animation = 'fadeInOut 10s forwards';
+    } else alert("Oops! Something went wrong.");
+  })
+  .catch(() => alert("Error submitting the form."));
+});

@@ -348,35 +348,64 @@ body.light .hero-section::after {
 
 
 /* Enable horizontal scrolling for the container */
-.portfolio-container {
-  display: flex;
-  overflow-x: auto;
-  overflow-y: hidden; /* Prevent vertical scroll from accidental drags */
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS and WebKit */
-  gap: 16px;
-  padding: 10px 0;
 
-  scrollbar-width: none; /* Firefox */
+.portfolio-container {
+    padding: 10px 30px; /* increase side padding slightly */
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden; /* Prevent vertical scroll from accidental drags */
+    scroll-snap-type: mandatory;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS and WebKit */
+    gap: 26px;
+    padding: 10px 0;
+    scrollbar-width: none; /* Firefox */
+    flex-wrap: nowrap;
+
 }
 
 /* Chrome, Safari, Edge - hide scrollbar */
 .portfolio-container::-webkit-scrollbar {
-  display: none;
+  display: none; /* Chrome, Safari, Edge */
 }
 
-.portfolio-container::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
-}
 /* Wrapper around container and arrows */
 .portfolio-wrapper {
-  position: relative;
+    position: relative;
 }
+
 .portfolio-card.cloned {
     /* Optional: reduce opacity or mark for debugging */
     opacity: 0.9;
-  }
-  
+}
+/* Make each card fixed width and snap */
+.portfolio-card {
+  flex: 0 0 250px; /* Fixed width for swipe */
+  scroll-snap-align: start;
+  background-color: var(--border);
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  text-decoration: none;
+  color: var(--secondary);
+  padding: 70px;
+}
+
+/* Disable image dragging and selection */
+.portfolio-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  touch-action: manipulation;
+  pointer-events: auto;
+}
+
+
 
 /* Arrows */
 .scroll-arrow {
@@ -422,36 +451,7 @@ body.light .hero-section::after {
 }
 
 /* Make sure container has some padding so arrows don’t overlap cards */
-.portfolio-container {
-  padding: 10px 30px; /* increase side padding slightly */
-}
-/* Make each card fixed width and snap */
-.portfolio-card {
-  flex: 0 0 250px; /* Fixed width for swipe */
-  scroll-snap-align: start;
-  background-color: var(--border);
-  border-radius: 15px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  text-decoration: none;
-  color: var(--secondary);
-  padding: 70px;
-}
 
-/* Disable image dragging and selection */
-.portfolio-card img {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  touch-action: manipulation;
-  pointer-events: auto;
-}
 
 
 
