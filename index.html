@@ -32,7 +32,7 @@
     <div class="hero-content">
       <img src="images/profile.jpg" alt="Michael Melaku" class="hero-img" />
       <h1>Michael Melaku</h1>
-      <p>Data • Systems • Front-End</p>
+      <p>I’m a <span id="typed-text"></span></p>
       <div class="hero-buttons">
         <a href="#contact" class="btn">Contact Me</a>
         <a href="resume/michael_melaku_resume.pdf" class="btn outline" download>Download Resume</a>
@@ -71,10 +71,31 @@
     </div>
   </section>
 
+
   <!-- Experience -->
-  <!-- Experience -->
-<section id="experience" class="section fade-in">
+
+
+<style>
+.timeline { border-left: 2px solid #ffcc00; margin-left: 20px; padding-left: 20px; }
+.event { position: relative; margin-bottom: 30px; }
+.event::before { content: ""; position: absolute; left: -9px; top: 0; width: 16px; height: 16px; background: #ffcc00; border-radius: 50%; }
+</style>
+
+
+  <section id="experience" class="section fade-in">
   <h2>Experience</h2>
+
+  <div class="timeline">
+  <div class="event fade-in">
+    <h3>AI Data Specialist</h3>
+    <p><strong>Mindrift | Toloka | Jun 2024 – Present | Remote</strong></p>
+    <ul>
+      <li>Engineered and labeled datasets for supervised ML and LLM fine-tuning workflows.</li>
+      <li>Designed and refined prompts to evaluate AI model outputs, enhancing response quality.</li>
+      <li>Collaborated in a remote agile environment, consistently achieving 98%+ data accuracy.</li>
+    </ul>
+  </div>
+</div>
 
   <div class="job">
     <h3>AI Data Specialist</h3>
@@ -185,16 +206,16 @@
       <p>Detail About Project C</p>
     </a>
     <a href="construction.html" target="_blank" class="portfolio-card">
-       <h3>Project B</h3>
+      <h3>Project B</h3>
       <p>Detail About Project B</p>
     </a>
     <a href="construction.html" target="_blank" class="portfolio-card">
-       <h3>Project A</h3>
+      <h3>Project A</h3>
       <p>Detail About Project A</p>
     </a>
 
   </div>
-   <!-- <button class="scroll-arrow right" aria-label="Scroll right">&#10095;</button> -->
+  <!-- <button class="scroll-arrow right" aria-label="Scroll right">&#10095;</button> -->
 </div>
 </section>
 

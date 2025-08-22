@@ -1,3 +1,28 @@
+const words = ["Data Specialist", "Systems Engineer", "Front-End Developer"];
+let i = 0, j = 0, currentWord = "", isDeleting = false;
+const speed = 150;
+
+function type() {
+  const target = document.getElementById("typed-text");
+  if (!isDeleting && j < words[i].length) {
+    currentWord += words[i][j];
+    j++;
+    target.textContent = currentWord;
+    setTimeout(type, speed);
+  } else if (isDeleting && j >= 0) {
+    currentWord = words[i].substring(0, j);
+    j--;
+    target.textContent = currentWord;
+    setTimeout(type, speed / 2);
+  } else {
+    isDeleting = !isDeleting;
+    if (!isDeleting) i = (i + 1) % words.length;
+    setTimeout(type, 1000);
+  }
+}
+type();
+
+
 // ================== Dark Mode Toggle ==================
 const toggleBtn = document.getElementById('theme-toggle');
 const themeIcon = document.getElementById('theme-icon');
